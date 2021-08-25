@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ae.ae1.account.AccountController;
 import com.ae.ae1.bankbook.BankBookController;
 import com.ae.ae1.member.MemberController;
 
@@ -20,6 +21,8 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberController memberController;
 	private BankBookController bankbookController; 
+	private AccountController accountController;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,6 +31,7 @@ public class FrontController extends HttpServlet {
         // TODO Auto-generated constructor stub
         memberController = new MemberController();
         bankbookController = new BankBookController();
+        accountController = new AccountController();
     }
 
 	/**
@@ -49,9 +53,16 @@ public class FrontController extends HttpServlet {
 		//String path = uris[2];
 		System.out.println("path: "+ path);
 		if(path.equals("member")) {
-			memberController.start(request);
+			try {
+				memberController.start(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else if(path.equals("bankbook")) {
 			bankbookController.start(request, response);
+		}else if(path.equals("account")) {
+			accountController.start(request, response);
 		}else {
 			System.out.println("없는 url");
 		}

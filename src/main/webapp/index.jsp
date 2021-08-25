@@ -18,7 +18,12 @@
 	<p>
 		<a href="/ServletStudy2/bankbook/bankbookList.do">BankBook List</a><br>
 		<a href="bankbook/bankbookInsert.do">BankBook Insert</a><br>
-		<a href="./bankbook/bankbookSelect.do?PRO_NUM=3">BankBook Select</a>
+		<a href="./bankbook/bankbookSelect.do?BOOK_NUM=3">BankBook Select</a>
+	</p>
+	<h3>Account</h3>
+	<p>
+		<a href="./account/accountList.do">Account List</a>
+	
 	</p>
 </body>
 </html>

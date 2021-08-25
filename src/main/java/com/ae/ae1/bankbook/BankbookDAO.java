@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.ae.ae1.util.DBConnector;
 
 public class BankbookDAO {
@@ -17,6 +19,39 @@ public class BankbookDAO {
 		dbConnector = new DBConnector();
 	}
 	
+	//HttpServletRequest request
+	//setInsert
+	public int setInsert(BankbookDTO bankbookDTO) {
+		Connection con = null;
+		PreparedStatement st=null;
+		int result = 0;
+
+		try {
+			con = dbConnector.getConnect();
+			String sql = "Insert INTO BANKBOOK(BOOK_NUM, BOOK_NAME, BOOK_RATE, BOOK_SALE) "
+					+ "VALUES(ACCOUT_SEQ.NEXTVAL,?,?,?)";
+			st = con.prepareStatement(sql);
+//			st.setString(1, request.getParameter("book_name"));
+//			st.setDouble(2, Double.parseDouble(request.getParameter("book_rate")) );
+//			st.setInt(3, Integer.parseInt(request.getParameter("book_sale")));
+			
+			st.setString(1,bankbookDTO.getBook_name() );
+			st.setDouble(2, bankbookDTO.getBook_rate() );
+			st.setInt(3, bankbookDTO.getBook_sale());
+			
+			result = st.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			dbConnector.disConnect(st, con);
+		}
+		return result;
+		
+	}
+	
+	
+	
 	
 	public ArrayList<BankbookDTO> getList() {
 		Connection con = null;
@@ -26,16 +61,16 @@ public class BankbookDAO {
 		
 		try {
 			con = dbConnector.getConnect();
-			String sql = "SELECT * FROM PRODUCT";
+			String sql = "SELECT * FROM BANKBOOK";
 			st = con.prepareStatement(sql);
 			rs = st.executeQuery();
 			
 			while(rs.next()) {
 				BankbookDTO bankbookDTO = new BankbookDTO();
-				bankbookDTO.setPro_num(rs.getInt("Pro_num"));
-				bankbookDTO.setPro_name(rs.getString("Pro_name"));
-				bankbookDTO.setInterest_rate(rs.getDouble("Interest_rate"));
-				bankbookDTO.setOn_sale(rs.getInt("ON_SALE"));
+				bankbookDTO.setBook_num(rs.getLong("book_num"));
+				bankbookDTO.setBook_name(rs.getString("book_name"));
+				bankbookDTO.setBook_rate(rs.getDouble("book_rate"));
+				bankbookDTO.setBook_sale(rs.getInt("book_rate"));
 				ar.add(bankbookDTO);
 			}	
 			
@@ -59,17 +94,17 @@ public class BankbookDAO {
 		
 		try {
 			con = dbConnector.getConnect();
-			String sql = "Select * from PRODUCT WHERE PRO_NUM=?";
+			String sql = "Select * from BANKBOOK WHERE BOOK_NUM=?";
 			st = con.prepareStatement(sql);
-			st.setInt(1, bankbookDTO.getPro_num());
+			st.setLong(1, bankbookDTO.getBook_num());
 			rs = st.executeQuery();
 			
 			if(rs.next()) {
 				result = new BankbookDTO();
-				result.setPro_num(rs.getInt("Pro_num"));
-				result.setPro_name(rs.getString("Pro_name"));
-				result.setInterest_rate(rs.getDouble("Interest_rate"));
-				result.setOn_sale(rs.getInt("ON_SALE"));
+				result.setBook_num(rs.getLong("book_num"));
+				result.setBook_name(rs.getString("book_name"));
+				result.setBook_rate(rs.getDouble("book_rate"));
+				result.setBook_sale(rs.getInt("book_rate"));
 			}
 			
 		} catch (Exception e) {
