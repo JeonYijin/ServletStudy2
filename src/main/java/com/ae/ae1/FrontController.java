@@ -3,11 +3,14 @@ package com.ae.ae1;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ae.ae1.account.AccountController;
 import com.ae.ae1.bankbook.BankBookController;
@@ -38,6 +41,11 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletConfig sc = getServletConfig(); // 내장객체 가지고 오는 메서드
+		HttpSession session = request.getSession();
+		ServletContext context = session.getServletContext();
+		context = getServletContext(); //session에서 안꺼내고 바로 꺼내기도 가능
+		
 		System.out.println("Front Controller 실행");
 		String uri = request.getRequestURI();
 		System.out.println(uri);
