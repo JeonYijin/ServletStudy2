@@ -9,17 +9,15 @@
 </head>
 <body>
 	<h1>BankBook Select Page</h1>
-	<% 
-		//session
-		//application
-		//page
-		String num = request.getParameter("BOOK_NUM");
-		Object obj = request.getAttribute("dto");
-		BankbookDTO bankbookDTO = (BankbookDTO)obj;
-	%>
+	
+	
  
-	<h3>num : <%= num %></h3>
-	<h3>Name : <%= bankbookDTO.getBook_name() %></h3>
+	<h3>num : ${dto.book_num}  </h3>
+	<h3>Name : ${requestScope.dto.book_name}</h3>
+	<h3>Count : ${requestScope.count}</h3>
+	<h3>name : ${name}</h3>
+	<h3>SE : ${sessionScope.se}</h3>
+	<h3>SE : ${se}</h3>
 	
 </body>
 </html>
