@@ -1,9 +1,18 @@
 @charset "UTF-8";
 
+#title{
+	width: 70%;
+	background-color:  #6dd1dc ;
+	margin: 0 auto;
+	text-align: center;	
+}
 #t1{
 	border: #5b9edb solid 2px;
 	border-spacing: 0px;
 	border-collapse: separate;
+	width: 70%;
+	margin: 0 auto;
+	
 }
 .c1{
 	border: #6dd1dc solid 2px;
